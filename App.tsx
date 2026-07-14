@@ -1,45 +1,33 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React from 'react';
+import {View, Button} from 'react-native';
+import {authorize} from 'react-native-app-auth';
+import {config} from './src/authConfig';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+export default function App() {
+  const login = async () => {
+    try {
+      const authState = await authorize(config);
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+      console.log(authState);
 
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+      console.log('Access Token');
+      console.log(authState.accessToken);
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+      console.log('Refresh Token');
+      console.log(authState.refreshToken);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <Button title="Login with Keycloak" onPress={login} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
