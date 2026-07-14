@@ -1,5 +1,9 @@
 // src/authConfig.js
 
+export const API_BASE_URL = __DEV__
+  ? 'http://10.0.2.2:5000'   // Android emulator → host machine; change to localhost:5000 for iOS simulator
+  : 'https://weanaapp.confitechone.com';
+
 export const config = {
   issuer: 'https://identity.confitechone.com/realms/weana',
 
